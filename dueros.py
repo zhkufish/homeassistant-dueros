@@ -162,16 +162,16 @@ def discoveryDevice():
     devices = []
 
     # devices.append({
-    #     'applianceId': 'light.',
-    #     'friendlyName': '小夜灯',
-    #     'friendlyDescription': '小夜灯',
+    #     'applianceId': 'sensor.temperature_158d0001830246',
+    #     'friendlyName': '卧室温度',
+    #     'friendlyDescription': '卧室温度',
     #     'additionalApplianceDetails': [],
-    #     'applianceTypes': ['LIGHT'],
+    #     'applianceTypes': ['AIR_CONDITION'],
     #     'isReachable': True,
     #     'manufacturerName': 'HomeAssistant',
     #     'modelName': 'HomeAssistantLight',
     #     'version': '1.0',
-    #     'actions': ["turnOn", "timingTurnOn", "turnOff", "timingTurnOff", "setBrightnessPercentage", "incrementBrightnessPercentage", "decrementBrightnessPercentage", "setColor"],
+    #     'actions': ["getTemperatureReading"],
     # })
     for state in states:
         attributes = state.attributes
@@ -250,7 +250,7 @@ def queryDevice(name, payload):
             entity_id = state.entity_id
             attributes = state.attributes
             if entity_id.startswith('sensor.') and (entity_id in entity_ids or attributes['friendly_name'].startswith(deviceId) or attributes.get('hagenie_zone') == deviceId):
-                prop,action = guessPropertyAndAction(entity_id, attributes, state.state)
+                prop,action = guessAction(entity_id, attributes, state.state)
                 if prop is None:
                     continue
                 properties.append(prop)
@@ -317,7 +317,7 @@ INCLUDE_DOMAINS = {
     'media_player': 'TV_SET',
     'switch': 'SWITCH',
     'vacuum': 'SWEEPING_ROBOT',
-    'sensor': 'AIR_MONITOR',
+    # 'sensor': 'AIR_MONITOR',
     'cover': 'CURTAIN'
 
     }
@@ -424,7 +424,8 @@ TRANSLATIONS = {
 def guessDeviceType(entity_id, attributes):
     deviceTypes = []
     if 'dueros_deviceType' in attributes:
-        deviceTypes.append(attributes['dueros_deviceType'])
+        deviceTypes = attributes['dueros_deviceType']
+        return deviceTypes
 
     # Exclude with domain
     domain = entity_id[:entity_id.find('.')]

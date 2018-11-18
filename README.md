@@ -12,6 +12,7 @@ HomeAssistant 小度智能音箱插件
 ====================================
 
 授权的过程遇到了个坑, 不知道是不什么原因, 直接用ha的8123默认端口, 一直授权失败. 后来配置了nginx做转发才授权成功. 如果有人遇到同样的问题的话, 我再把nginx的配置发上来吧. 如果出现授权失败的话, 可以尝试以下方法
+
 ps: 用群晖的朋友可以尝试这个办法(https://bbs.hassbian.com/forum.php?mod=viewthread&tid=5417&page=5#pid155731)
 
 ```
@@ -92,12 +93,19 @@ dueros:
 
 五. 一些其它配置
 ====================================
-必须 要有friendly_name(在customize.yaml里面), 否则可能会发现不了,
+必须 要有friendly_name(在customize.yaml里面), 否则可能会发现不了
+
+关于dueros_deviceType 和 dueros_actions 相关文档, 请在dueros的接口文档里面查询
+https://dueros.baidu.com/didp/doc/dueros-bot-platform/dbp-smart-home/protocol/discovery-message_markdown
 ```
 switch.light:  
     friendly_name: 客厅灯  
     dueros_hidden: true   #如果不想小度添加某个设备,可以配置该参数
+    dueros_deviceType: ['LIGHT']  #自定设备类型
+    dueros_actions: ['turnOn', 'turnOff'] #自定设备可执行操作
 ```
+
+需要EXCLUDE_DOMAINS或者INCLUDE_DOMAINS的同学可以自己在代码里面修改, 打开dueros.py 找到EXCLUDE_DOMAINS或者INCLUDE_DOMAINS自行添加或者删除
 
 六. 目前已经测试可用功能
 ====================================

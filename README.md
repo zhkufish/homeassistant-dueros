@@ -12,7 +12,7 @@ HomeAssistant 小度智能音箱插件
 ====================================
 
 授权的过程遇到了个坑, 不知道是不什么原因, 直接用ha的8123默认端口, 一直授权失败. 后来配置了nginx做转发才授权成功. 如果有人遇到同样的问题的话, 我再把nginx的配置发上来吧. 如果出现授权失败的话, 可以尝试以下方法
-ps: 用群晖的朋友可以尝试42楼的方法
+ps: 用群晖的朋友可以尝试这个办法(https://bbs.hassbian.com/forum.php?mod=viewthread&tid=5417&page=5#pid155731)
 
 ```
 1.安装nginx web服务器 (约6MB)
@@ -74,31 +74,41 @@ https://blog.csdn.net/conghua19/article/details/81433716
 
 二. 百度dueros后台配置
 ====================================
-![](https://github.com/li6185377/LKDBHelper-SQLite-ORM/raw/master/screenshot/Snip20130620_8.png)
+![](https://github.com/zhkufish/homeassistant-dueros/raw/master/readme_pic1.png)
 
 
-三. 将下面的代码放到/config/custom_components目录下面：
+三. 添加自定义插件：
 ====================================
-[attach]10931[/attach]
+```
+把文件dueros.py 放到/config/custom_components目录下面
+```
 
 四. configuration.yaml 文件配置
 ====================================
-[mw_shl_code=bash,true]dueros:
-  expire_hours: 180  #授权过期时间. 该参数不是必填[/mw_shl_code]
+```
+dueros:
+  expire_hours: 180  #授权过期时间. 该参数不是必填
+```
 
 五. 一些其它配置
 ====================================
 必须 要有friendly_name(在customize.yaml里面), 否则可能会发现不了,
-
-[mw_shl_code=bash,true]switch.light:  
+```
+switch.light:  
     friendly_name: 客厅灯  
-    dueros_hidden: true   #如果不想小度添加某个设备,可以配置该参数[/mw_shl_code]
+    dueros_hidden: true   #如果不想小度添加某个设备,可以配置该参数
+```
 
-目前已经测试可用功能1. 开关指令
+六. 目前已经测试可用功能
+====================================
+1. 开关指令
 2. 灯的颜色, 亮度 指令
 3. 小米扫地机器人, 支持调整吸力强度(标准档和强劲档)
 4. 窗帘 (只支持开和关, 不支持开到指定位置)
-待完善功能:1. 延时指令功能(小度支持 5分钟后关灯 指令, 但是指令到homeassistant之后, 我不知道要怎么实现, 期待有大神指点一下)
+
+七. 待完善功能:
+====================================
+1. 延时指令功能(小度支持 5分钟后关灯 指令, 但是指令到homeassistant之后, 我不知道要怎么实现, 期待有大神指点一下)
 2. 传感器查询指令有问题, (目前温度, 湿度等传感器的数据还无法识别)
 
 

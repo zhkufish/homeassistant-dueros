@@ -74,7 +74,7 @@ https://blog.csdn.net/conghua19/article/details/81433716
 
 二. 百度dueros后台配置
 ====================================
-
+![](https://github.com/li6185377/LKDBHelper-SQLite-ORM/raw/master/screenshot/Snip20130620_8.png)
 
 
 三. 将下面的代码放到/config/custom_components目录下面：
